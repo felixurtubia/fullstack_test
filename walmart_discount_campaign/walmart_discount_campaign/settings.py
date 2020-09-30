@@ -14,10 +14,8 @@ from pathlib import Path
 import os
 import dj_database_url
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -29,7 +27,6 @@ SECRET_KEY = '@t*1i*^zrzhta0fq@mjb0=%h4^tvc(jr8kg4)gatvr20w$=1#o'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -50,7 +47,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'walmart_discount_campaign.urls'
@@ -73,21 +69,50 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'walmart_discount_campaign.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'default_django',
+        'CLIENT': {
+            'host': 'mongodb.duseno.com',
+            'port': 27017,
+            'username': 'productListUser',
+            'password': 'productListPassword',
+            'authMechanism': 'SCRAM-SHA-1'
+        },
+    },
+    'promotions': {
+        'ENGINE': 'djongo',
+        'NAME': 'promotions',
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {
+            'host': 'mongodb.duseno.com',
+            'port': 27017,
+            'username': 'productListUser',
+            'password': 'productListPassword',
+            'authMechanism': 'SCRAM-SHA-1'
+        },
+    }
+}
 
 """DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'promotions': {
+        'ENGINE': 'djongo',
+        'NAME': 'promotions',
     }
 }"""
-DATABASES = {
+"""DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get('DATABASE_URL')
-    )
-}
+    ),
+}"""
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -107,7 +132,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -121,16 +145,8 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static')
-)
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
