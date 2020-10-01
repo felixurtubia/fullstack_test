@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'products',
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -76,6 +77,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'default_django',
+        'ENFORCE_SCHEMA': False,
         'CLIENT': {
             'host': 'mongodb.duseno.com',
             'port': 27017,
@@ -86,7 +88,7 @@ DATABASES = {
     },
     'promotions': {
         'ENGINE': 'djongo',
-        'NAME': 'promotions',
+        'NAME': 'promotions_django',
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
             'host': 'mongodb.duseno.com',
@@ -137,7 +139,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Santiago'
 
 USE_I18N = True
 
