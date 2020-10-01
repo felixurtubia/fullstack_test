@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if search_term %}
+<div class="text px-3 py-3 pt-md-5 pb-md-4 mt-5">
+    <h1 class="display-4">Resultados para: {{ search_term|default:"----" }}</h1>
+</div>
+{% endif %}
+
+{% if error %}
+<div class="errornote px-3 py-3 pt-md-5 pb-md-4 mt-5" style="color: #ff7448">
+    <h1 class="display-4">La búsqueda debe ser de al menos 4 caracteres</h1>
+</div>
+{% endif %}
+
+<div class="container-fluid">
+  <div class="card-deck mb-4 mt-4 text-center">
+        {% for product in products %}
+    <div class="card text-left p-3 m-4 w-25" style="max-width: 25rem;">
+        <img src="https://{{ product.image }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title"><strong>{{ product.brand}} </strong> {{product.description}}</h5>
+            {% if palindrome_dsc %}
+            <h5 class="card-subtitle"> {{ product.get_half_price }} <mark style="color: red">50%</mark></h5>
+            <h6 class="card-text "><del>{{ product.get_price }}</del></h6>
+            {% else %}
+            <h6 class="card-text"> {{ product.get_price }}</h6>
+            {% endif %}
+
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+
+
+</div>
+
+{% endblock content %}
